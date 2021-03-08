@@ -11,14 +11,14 @@ function LoadInstagramFeed(username,containerId)
                 'username': username,
                 'container': "#"+containerId,
                 'display_profile': true,
-                'display_biography': true,
+                'display_biography': false,
                 'display_gallery': true,
                 'display_captions': true,
                 'max_tries': 8,
                 'callback': null,
                 'styling': true,
-                'items': 8,
-                'items_per_row': 4,
+                'items': 1,
+                'items_per_row': 1,
                 'margin': 1,
                 'lazy_load': true,
                 'on_error': console.error
@@ -41,4 +41,7 @@ function newAccount()
 	.attr("id",containerId)
 	.attr("class","item");
 	LoadInstagramFeed(account,containerId);
+
+	d3.select("#inputIGAccount").node().value = "";
+	globalContainerCount += 1;
 }
