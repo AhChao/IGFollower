@@ -23,6 +23,14 @@ function LoadInstagramFeed(username,containerId)
                 'lazy_load': true,
                 'on_error': console.error
             });
+	modifyItemScaling();
+}
+
+function modifyItemScaling()
+{
+	let size = d3.select("#inputScalingSize").node().value;
+	let rate = 100/size;
+	d3.select(".item").attr("flex","0 1 calc(" + rate + "% - 8px);");
 }
 
 function newAccount()

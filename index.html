@@ -9,16 +9,18 @@
 		flex-flow: row wrap;
 	}
 	.item {
-		background: blue;
 		margin: 4px;
-		flex: 0 1 calc(20% - 8px); /* <-- adjusting for margin */
+		flex: 0 1 calc(33% - 8px); /* <-- adjusting for margin */
 	}
 </style>
 <body>
 	<div>
-		<h2> IG Follower t0.0.11</h2>
+		<h2> IG Follower t0.0.2</h2>
 		<h3> Instagram 帳號 ： <input type="text" id="inputIGAccount">
 		<button id="newAccountBtn" onclick="newAccount()">新增 Instagram 帳號</button>
+		</h3>
+		<h3> 一行 <input type="number" id="inputScalingSize" value=3>個帳號
+		<button id="scalingBtn" onclick="modifyItemScaling()">變更</button>
 		</h3>
 	</div>
 	<div id="displayField" class="displayField"></div>
