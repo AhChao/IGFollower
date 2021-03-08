@@ -7,6 +7,26 @@
 	<h3>IG Account : <input type="text" id="IGAccount01"></h3>
 	<h3>IG Account : <input type="text" id="IGAccount02"></h3>
 	<h3>IG Account : <input type="text" id="IGAccount02"></h3>
+	<!--<iframe src="https://www.instagram.com/p/CMBf-dLnq7C/embed" width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>-->
+
+
+	<div id="instagram-feed-demo" class="instagram_feed"></div>
+
+<script type="text/javascript" src="./lib/jquery-3.6.0.min.js"></script>
+	
+	<script type="text/javascript" src="./script/main.js"></script>
+	<script src="./lib/jquery.instagramFeed.min.js"></script>
+    
+<script>
+$(window).on('load', function(){
+  $.instagramFeed({
+    'username': 'wikipedia',
+    'container': "#instagram-feed-demo",
+    'styling': false
+  });
+});
+
+</script>
 
 </body>
 </html>
