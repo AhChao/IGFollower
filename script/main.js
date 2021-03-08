@@ -31,6 +31,6 @@ function newAccount()
 	let containerId = "container" + globalContainerCount;
 	d3.select("#displayField").append("div")
 	.attr("id",containerId)
-	.attr("class",item);
+	.attr("class","item");
 	LoadInstagramFeed(account,containerId);
 }
