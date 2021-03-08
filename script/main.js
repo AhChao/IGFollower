@@ -30,7 +30,9 @@ function modifyItemScaling()
 {
 	let size = d3.select("#inputScalingSize").node().value;
 	let rate = 100/size;
-	d3.select(".item").attr("flex","0 1 calc(" + rate + "% - 8px);");
+	d3.select(".item")
+	.attr("flex","0 1 calc(" + rate + "% - 8px);")
+	.attr("background",getRandomLightColor());
 }
 
 function newAccount()
@@ -44,4 +46,11 @@ function newAccount()
 
 	d3.select("#inputIGAccount").node().value = "";
 	globalContainerCount += 1;
+}
+
+function getRandomLightColor()
+{
+	var new_light_color = 'rgb(' + (Math.floor((256-229)*Math.random()) + 230) + ',' + 
+            (Math.floor((256-229)*Math.random()) + 230) + ',' + 
+            (Math.floor((256-229)*Math.random()) + 230) + ')'; 
 }
