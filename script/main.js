@@ -9,7 +9,7 @@ function LoadInstagramFeed(username,containerId)
 {
 	$.instagramFeed({
                 'username': username,
-                'container': containerId,
+                'container': "#"+containerId,
                 'display_profile': true,
                 'display_biography': true,
                 'display_gallery': true,
