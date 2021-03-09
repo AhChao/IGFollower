@@ -27,6 +27,8 @@ function LoadInstagramFeed(username,containerId)
             });
 	d3.select("#"+containerId).attr("background",getRandomLightColor());
 	modifyItemScaling();
+	setCookie(username_containerId, "Test", 3 );
+	console.log("CookieTest",getCookie(username_containerId));
 }
 
 function modifyItemScaling()
@@ -67,3 +69,27 @@ function setUpEnterKeyBinding(inputId,btnId)
 	  }
 	});
 }
+
+//#region : Cookie basic function -- refer w3c
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+//#endregion : Cookie basic function
