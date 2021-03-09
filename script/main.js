@@ -12,8 +12,8 @@ init();
 function clickResetAccountBtn()
 {
 	d3.select("#displayField").node().innerHTML = "";
-	localStorage.removeItem("inputIGAccount");
-	localStorage.removeItem("inputScalingSize");
+	windowLocalStorage.removeItem("IGPairUsername");
+	windowLocalStorage.removeItem("IGPairContainer");
 	globalContainerCount = 0;
 }
 
@@ -59,8 +59,8 @@ function loadAccountsWithLocalStorage()
 function concatArrayWithString(originString,insertString)
 {
 	if(originString == null)
-		return "["+insertString+"]";
-	return originString.split("]")[0]+","+insertString+"]";
+		return "[\""+insertString+"\"]";
+	return originString.split("]")[0]+",\""+insertString+"\"]";
 }
 
 function modifyItemScaling()
