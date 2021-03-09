@@ -14,12 +14,15 @@
 		width: 33%;
 		height: auto;
 	}
+	button{
+		margin: 4px;
+	}
 </style>
 <body>
 	<div>
-		<h2> IG Follower t0.0.26</h2>
+		<h2> IG Follower t0.0.3</h2>
 		<h3> Instagram 帳號 ： <input type="text" id="inputIGAccount">
-		<button id="newAccountBtn" onclick="newAccount()">新增 Instagram 帳號</button>
+		<button id="newAccountBtn" onclick="clickNewAccountBtn()">新增 Instagram 帳號</button><button id="resetAccountBtn" onclick="clickResetAccountBtn()">重製設定</button>
 		</h3>
 		<h3> 一行 <input type="number" id="inputScalingSize" value=3>個帳號
 		<button id="scalingBtn" onclick="modifyItemScaling()">變更</button>

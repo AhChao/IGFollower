@@ -1,11 +1,21 @@
 var globalContainerCount = 0;
+var windowLocalStorage = window.localStorage;
 function init()
 {
 	globalContainerCount = 0;
 	setUpEnterKeyBinding("inputIGAccount","newAccountBtn");
 	setUpEnterKeyBinding("inputScalingSize","scalingBtn");
+	loadAccountsWithLocalStorage();
 }
 init();
+
+function clickResetAccountBtn()
+{
+	d3.select("#displayField").node().innerHTML = "";
+	localStorage.removeItem("inputIGAccount");
+	localStorage.removeItem("inputScalingSize");
+	globalContainerCount = 0;
+}
 
 function LoadInstagramFeed(username,containerId)
 {
@@ -27,8 +37,30 @@ function LoadInstagramFeed(username,containerId)
             });
 	d3.select("#"+containerId).attr("background",getRandomLightColor());
 	modifyItemScaling();
-	setCookie(username_containerId, "Test", 3 );
-	console.log("CookieTest",getCookie(username_containerId));
+	
+	windowLocalStorage.setItem('IGPairUsername', concatArrayWithString(windowLocalStorage.getItem('IGPairUsername'),username));
+	windowLocalStorage.setItem('IGPairContainer', concatArrayWithString(windowLocalStorage.getItem('IGPairContainer'),containerId));
+}
+
+function loadAccountsWithLocalStorage()
+{
+	var usernameStr = windowLocalStorage.getItem('IGPairUsername');
+	var containerStr = windowLocalStorage.getItem('IGPairContainer');
+	if(usernameStr == null || containerStr == null)
+		return;
+	var usernameArr = JSON.parse(usernameStr);
+	var containerArr = JSON.parse(containerStr);
+	for(var id in containerArr)
+	{
+		generateNewAccountView(usernameArr[id],containerArr[id]);
+	}
+}
+
+function concatArrayWithString(originString,insertString)
+{
+	if(originString == null)
+		return "["+insertString+"]";
+	return originString.split("]")[0]+","+insertString+"]";
 }
 
 function modifyItemScaling()
@@ -39,17 +71,21 @@ function modifyItemScaling()
 	.attr("width",rate+"%");
 }
 
-function newAccount()
+function clickNewAccountBtn()
 {
 	let account = d3.select("#inputIGAccount").node().value;
 	let containerId = "container" + globalContainerCount;
+	generateNewAccountView(account,containerId);
+	d3.select("#inputIGAccount").node().value = "";
+	globalContainerCount += 1;
+}
+
+function generateNewAccountView(account,containerId)
+{
 	d3.select("#displayField").append("div")
 	.attr("id",containerId)
 	.attr("class","item");
 	LoadInstagramFeed(account,containerId);
-
-	d3.select("#inputIGAccount").node().value = "";
-	globalContainerCount += 1;
 }
 
 function getRandomLightColor()
