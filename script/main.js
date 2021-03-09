@@ -51,6 +51,10 @@ function loadAccountsWithLocalStorage()
 	for(var id in containerArr)
 	{
 		generateNewAccountView(usernameArr[id],containerArr[id],false);
+		if(id == containerArr.length-1)
+		{
+			globalContainerCount = id + 1;
+		}
 	}
 }
 
@@ -87,7 +91,7 @@ function generateNewAccountView(account,containerId,needToRecordInStorage)
 	LoadInstagramFeed(account,containerId);
 	if(needToRecordInStorage)
 	{
-		windowLocalStorage.setItem('IGPairUsername', concatArrayWithString(windowLocalStorage.getItem('IGPairUsername'),username));
+		windowLocalStorage.setItem('IGPairUsername', concatArrayWithString(windowLocalStorage.getItem('IGPairUsername'),account));
 		windowLocalStorage.setItem('IGPairContainer', concatArrayWithString(windowLocalStorage.getItem('IGPairContainer'),containerId));
 	}
 
