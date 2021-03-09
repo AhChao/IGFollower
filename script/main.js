@@ -139,9 +139,9 @@ function removeMonitoringAccount(closedBtnId)
 {
 	var targetId = closedBtnId.split("_")[1];
 	d3.selectAll("#"+targetId).remove();
-	var usernameArr = JSON.parse(windowLocalStorage.getItem('IGPairUsername'));
 	var containerArr = JSON.parse(windowLocalStorage.getItem('IGPairContainer'));
-	var indexOfTarget = usernameArr.indexOf(targetId);
+	var usernameArr = JSON.parse(windowLocalStorage.getItem('IGPairUsername'));
+	var indexOfTarget = containerArr.indexOf(targetId);
 	usernameArr.splice(indexOfTarget, 1);
 	containerArr.splice(indexOfTarget, 1);
 	windowLocalStorage.setItem('IGPairUsername',JSON.stringify(usernameArr));
@@ -177,13 +177,13 @@ function switchPosition(switchId)
 			{
 				node1Place = i;
 				node1 = nodeDomList[i];
-				d3.select("#"+nodeDomList[i]).remove();
+				d3.select("#"+nodeDomList[i].id).remove();
 			}
 			else
 			{
 				node2Place = i;
 				node2 = nodeDomList[i];
-				d3.select("#"+nodeDomList[i]).remove();
+				d3.select("#"+nodeDomList[i].id).remove();
 			}
 		}
 		else if (node1Place != null && node2Place == null)
