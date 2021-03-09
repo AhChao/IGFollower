@@ -35,7 +35,7 @@ function LoadInstagramFeed(username,containerId)
                 'lazy_load': true,
                 'on_error': console.error
             });
-	d3.select("#"+containerId).attr("background",getRandomLightColor());
+	d3.select("#"+containerId).attr("style","background:"+getRandomLightColor()+";");
 	modifyItemScaling();
 	
 	windowLocalStorage.setItem('IGPairUsername', concatArrayWithString(windowLocalStorage.getItem('IGPairUsername'),username));

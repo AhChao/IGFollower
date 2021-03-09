@@ -10,4 +10,5 @@ Todo
 - <s>Fix resize function</s> [t0.0.24]
 - Enable customize each account content
 - <s>Add hotkey (enter) for input</s> [t0.0.25]
-- Save input by cookie
+- <s>Save input by cookie</s> [t0.0.32]
+- Remove and Drag Item one by one
