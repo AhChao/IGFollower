@@ -113,6 +113,7 @@ function generateNewAccountView(account,containerId,needToRecordInStorage)
 	.style("right","0px")
 	.attr("id","closedBtn_"+containerId)
 	.attr("src","./img/icon/cancel.png")
+	.attr("onclick","removeMonitoringAccount(this.id)")
 	.lower();
 }
 
@@ -132,4 +133,10 @@ function setUpEnterKeyBinding(inputId,btnId)
 	    document.getElementById(btnId).click();
 	  }
 	});
+}
+
+function removeMonitoringAccount(closedBtnId)
+{
+	var targetId = closedBtnId.split("_")[1];
+	d3.removeItem("#"+targetId);
 }
