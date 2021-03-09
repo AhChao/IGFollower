@@ -12,3 +12,5 @@ Todo
 - <s>Add hotkey (enter) for input</s> [t0.0.25]
 - <s>Save input by cookie</s> [t0.0.32]
 - Remove and Drag Item one by one
+<br>
+[ICON From](https://www.flaticon.com/authors/smashicons)

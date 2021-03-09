@@ -1,5 +1,6 @@
 var globalContainerCount = 0;
 var windowLocalStorage = window.localStorage;
+var iconSize = 30;
 function init()
 {
 	globalContainerCount = 0;
@@ -85,6 +86,20 @@ function generateNewAccountView(account,containerId)
 	d3.select("#displayField").append("div")
 	.attr("id",containerId)
 	.attr("class","item");
+
+	LoadInstagramFeed(account,containerId);
+
+	d3.select("#"+containerId).append("img")
+	.attr("style","width:"+iconSize+"px;height"+iconSize+"px;position:relative; top:0px; right:0px;")
+	.attr("id","closedBtn_"+containerId)
+	.attr("src","../img/icon/down-arrow.png")
+	.lower();	
+
+	d3.select("#"+containerId).append("img")
+	.attr("style","width:"+iconSize+"px;height"+iconSize+"px;position:relative; top:0px; right:0px;")
+	.attr("id","closedBtn_"+containerId)
+	.attr("src","../img/icon/cancel.png")
+	.lower();
 	LoadInstagramFeed(account,containerId);
 }
 
