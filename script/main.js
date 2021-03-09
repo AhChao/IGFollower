@@ -38,9 +38,6 @@ function LoadInstagramFeed(username,containerId)
             });
 	d3.select("#"+containerId).attr("style","background:"+getRandomLightColor()+";");
 	modifyItemScaling();
-	
-	windowLocalStorage.setItem('IGPairUsername', concatArrayWithString(windowLocalStorage.getItem('IGPairUsername'),username));
-	windowLocalStorage.setItem('IGPairContainer', concatArrayWithString(windowLocalStorage.getItem('IGPairContainer'),containerId));
 }
 
 function loadAccountsWithLocalStorage()
@@ -53,7 +50,7 @@ function loadAccountsWithLocalStorage()
 	var containerArr = JSON.parse(containerStr);
 	for(var id in containerArr)
 	{
-		generateNewAccountView(usernameArr[id],containerArr[id]);
+		generateNewAccountView(usernameArr[id],containerArr[id],false);
 	}
 }
 
@@ -76,18 +73,23 @@ function clickNewAccountBtn()
 {
 	let account = d3.select("#inputIGAccount").node().value;
 	let containerId = "container" + globalContainerCount;
-	generateNewAccountView(account,containerId);
+	generateNewAccountView(account,containerId,true);
 	d3.select("#inputIGAccount").node().value = "";
 	globalContainerCount += 1;
 }
 
-function generateNewAccountView(account,containerId)
+function generateNewAccountView(account,containerId,needToRecordInStorage)
 {
 	d3.select("#displayField").append("div")
 	.attr("id",containerId)
 	.attr("class","item");
 
 	LoadInstagramFeed(account,containerId);
+	if(needToRecordInStorage)
+	{
+		windowLocalStorage.setItem('IGPairUsername', concatArrayWithString(windowLocalStorage.getItem('IGPairUsername'),username));
+		windowLocalStorage.setItem('IGPairContainer', concatArrayWithString(windowLocalStorage.getItem('IGPairContainer'),containerId));
+	}
 
 	d3.select("#"+containerId).append("img")
 	.attr("style","width:"+iconSize+"px;height"+iconSize+"px;position:relative; top:0px; right:0px;")
@@ -100,7 +102,6 @@ function generateNewAccountView(account,containerId)
 	.attr("id","closedBtn_"+containerId)
 	.attr("src","../img/icon/cancel.png")
 	.lower();
-	LoadInstagramFeed(account,containerId);
 }
 
 function getRandomLightColor()
@@ -120,27 +121,3 @@ function setUpEnterKeyBinding(inputId,btnId)
 	  }
 	});
 }
-
-//#region : Cookie basic function -- refer w3c
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  var expires = "expires="+d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-//#endregion : Cookie basic function
