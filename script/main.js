@@ -56,7 +56,7 @@ function loadAccountsWithLocalStorage()
 		generateNewAccountView(usernameArr[id],containerArr[id],false);
 		if(id == containerArr.length-1)
 		{
-			globalContainerCount = (Number)id + 1;
+			globalContainerCount = parseInt(id) + 1;
 		}
 	}
 }
@@ -82,7 +82,7 @@ function clickNewAccountBtn()
 	let containerId = "container" + globalContainerCount;
 	generateNewAccountView(account,containerId,true);
 	d3.select("#inputIGAccount").node().value = "";
-	globalContainerCount = (Number)globalContainerCount + 1;
+	globalContainerCount = parseInt(globalContainerCount) + 1;
 }
 
 function generateNewAccountView(account,containerId,needToRecordInStorage)
