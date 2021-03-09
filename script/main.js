@@ -2,6 +2,8 @@ var globalContainerCount = 0;
 function init()
 {
 	globalContainerCount = 0;
+	setUpEnterKeyBinding("inputIGAccount","newAccountBtn");
+	setUpEnterKeyBinding("inputScalingSize","scalingBtn");
 }
 init();
 
@@ -53,4 +55,15 @@ function getRandomLightColor()
 	return 'rgb(' + (Math.floor((256-229)*Math.random()) + 230) + ',' + 
             (Math.floor((256-229)*Math.random()) + 230) + ',' + 
             (Math.floor((256-229)*Math.random()) + 230) + ')'; 
+}
+
+function setUpEnterKeyBinding(inputId,btnId)
+{
+	var input = document.getElementById(inputId);
+	input.addEventListener("keyup", function(event) {
+	  if (event.keyCode === 13) {
+	    event.preventDefault();
+	    document.getElementById(btnId).click();
+	  }
+	});
 }

@@ -1,5 +1,5 @@
 # IGFollower
-A html page to follow IG pages.
+A html page to follow IG pages.<br>
 [Demo](https://ahchao.github.io/IGFollower/)
 
 Refer
@@ -7,7 +7,7 @@ Refer
 
 Todo
 - UI beautify
-- Fix resize function
+- <s>Fix resize function</s> [t0.0.24]
 - Enable customize each account content
-- Add hotkey (enter) for input
+- <s>Add hotkey (enter) for input</s> [t0.0.25]
 - Save input by cookie
