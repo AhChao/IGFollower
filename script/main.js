@@ -36,7 +36,7 @@ function LoadInstagramFeed(username,containerId)
                 'lazy_load': true,
                 'on_error': console.error
             });
-	d3.select("#"+containerId).attr("style","background:"+getRandomLightColor()+";");
+	d3.select("#"+containerId).style("background",getRandomLightColor());
 	modifyItemScaling();
 }
 
@@ -70,7 +70,7 @@ function modifyItemScaling()
 	let size = d3.select("#inputScalingSize").node().value;
 	let rate = Math.floor(100/size);
 	d3.select(".item")
-	.attr("width",rate+"%");
+	.style("width",rate+"%");
 }
 
 function clickNewAccountBtn()
@@ -96,15 +96,23 @@ function generateNewAccountView(account,containerId,needToRecordInStorage)
 	}
 
 	d3.select("#"+containerId).append("img")
-	.attr("style","width:"+iconSize+"px;height"+iconSize+"px;position:relative; top:0px; right:0px;")
-	.attr("id","closedBtn_"+containerId)
-	.attr("src","../img/icon/down-arrow.png")
+	.style("width",iconSize+"px")
+	.style("height",iconSize+"px")
+	.style("position","relative")
+	.style("top","0px")
+	.style("right","0px")
+	.attr("id","switchBtn_"+containerId)
+	.attr("src","./img/icon/down-arrow.png")
 	.lower();	
 
 	d3.select("#"+containerId).append("img")
-	.attr("style","width:"+iconSize+"px;height"+iconSize+"px;position:relative; top:0px; right:0px;")
+	.style("width",iconSize+"px")
+	.style("height",iconSize+"px")
+	.style("position","relative")
+	.style("top","0px")
+	.style("right","0px")
 	.attr("id","closedBtn_"+containerId)
-	.attr("src","../img/icon/cancel.png")
+	.attr("src","./img/icon/cancel.png")
 	.lower();
 }
 
