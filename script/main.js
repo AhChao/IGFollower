@@ -30,9 +30,9 @@ function LoadInstagramFeed(username,containerId)
 function modifyItemScaling()
 {
 	let size = d3.select("#inputScalingSize").node().value;
-	let rate = 100/size;
+	let rate = Math.floor(100/size);
 	d3.select(".item")
-	.attr("flex","0 1 calc(" + rate + "% - 8px);");
+	.attr("width",rate+"%");
 }
 
 function newAccount()
