@@ -1,9 +1,11 @@
 var globalContainerCount = 0;
 var windowLocalStorage = window.localStorage;
 var iconSize = 25;
+var swtichTempId = "";
 function init()
 {
 	globalContainerCount = 0;
+	swtichTempId = "";
 	setUpEnterKeyBinding("inputIGAccount","newAccountBtn");
 	setUpEnterKeyBinding("inputScalingSize","scalingBtn");
 	loadAccountsWithLocalStorage();
@@ -16,6 +18,7 @@ function clickResetAccountBtn()
 	windowLocalStorage.removeItem("IGPairUsername");
 	windowLocalStorage.removeItem("IGPairContainer");
 	globalContainerCount = 0;
+	swtichTempId = "";
 }
 
 function LoadInstagramFeed(username,containerId)
@@ -53,7 +56,7 @@ function loadAccountsWithLocalStorage()
 		generateNewAccountView(usernameArr[id],containerArr[id],false);
 		if(id == containerArr.length-1)
 		{
-			globalContainerCount = id + 1;
+			globalContainerCount = (Number)id + 1;
 		}
 	}
 }
@@ -79,7 +82,7 @@ function clickNewAccountBtn()
 	let containerId = "container" + globalContainerCount;
 	generateNewAccountView(account,containerId,true);
 	d3.select("#inputIGAccount").node().value = "";
-	globalContainerCount += 1;
+	globalContainerCount = (Number)globalContainerCount + 1;
 }
 
 function generateNewAccountView(account,containerId,needToRecordInStorage)
@@ -101,6 +104,7 @@ function generateNewAccountView(account,containerId,needToRecordInStorage)
 	.style("float","right")
 	.attr("id","switchBtn_"+containerId)
 	.attr("src","./img/icon/down-arrow.png")
+	.attr("onclick","switchPosition(this.id)")
 	.lower();	
 
 	d3.select("#"+containerId).append("img")
@@ -134,5 +138,73 @@ function setUpEnterKeyBinding(inputId,btnId)
 function removeMonitoringAccount(closedBtnId)
 {
 	var targetId = closedBtnId.split("_")[1];
-	d3.select("#"+targetId).remove();
+	d3.selectAll("#"+targetId).remove();
+}
+
+function switchPosition(switchId)
+{
+	var targetId = closedBtnId.split("_")[1];
+	if(swtichTempId = "")
+	{
+		swtichTempId = targetId;
+		return;
+	}
+	var nodeList = d3.select("#displayField").node().childNodes;
+	var nodeDomList = [];
+	var betweenDomList = [];
+	var tailDomList = [];
+	var node1Place = null;
+	var node1 = null;
+	var node2Place = null;
+	var node2 = null;
+	for(var i in nodeList)
+	{
+		if(nodeList[i].id!=undefined)
+			nodeDomList.push(nodeList[i]);
+	}
+	for(var i in nodeDomList)
+	{
+		if(nodeDomList[i].id == targetId || nodeDomList[i].id == swtichTempId)
+		{
+			if(node1Place == null)
+			{
+				node1Place = i;
+				node1 = nodeDomList[i];
+				d3.select("#"+nodeDomList[i]).remove();
+			}
+			else
+			{
+				node2Place = i;
+				node2 = = nodeDomList[i];
+				d3.select("#"+nodeDomList[i]).remove();
+			}
+		}
+		else if (node1Place != null && node2Place == null)
+		{
+			betweenDomList.push(nodeDomList[i]);
+			d3.select("#"+nodeDomList[i]).remove();
+		}
+		else if (node2Place == null)
+		{
+			tailDomList.push(nodeDomList[i]);
+			d3.select("#"+nodeDomList[i]).remove();
+		}
+	}
+	d3.select("#displayField").node().appendChild(node2);
+	for(var i in betweenDomList)
+	{
+		d3.select("#displayField").node().appendChild(betweenDomList[i]);
+	}
+	d3.select("#displayField").node().appendChild(node1);
+	for(var i in tailDomList)
+	{
+		d3.select("#displayField").node().appendChild(tailDomList[i]);
+	}
+
+	//swap
+	var usernameArr = JSON.parse(windowLocalStorage.getItem('IGPairUsername'));
+	var temp = usernameArr[node2Place];
+	usernameArr[node2Place] = usernameArr[node1Place];
+	usernameArr[node1Place] = temp;
+	windowLocalStorage.setItem('IGPairUsername',JSON.stringify(usernameArr));
 }
