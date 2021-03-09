@@ -175,7 +175,7 @@ function switchPosition(switchId)
 			else
 			{
 				node2Place = i;
-				node2 = = nodeDomList[i];
+				node2 = nodeDomList[i];
 				d3.select("#"+nodeDomList[i]).remove();
 			}
 		}
