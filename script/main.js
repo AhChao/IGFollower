@@ -214,4 +214,5 @@ function switchPosition(switchId)
 	usernameArr[node2Place] = usernameArr[node1Place];
 	usernameArr[node1Place] = temp;
 	windowLocalStorage.setItem('IGPairUsername',JSON.stringify(usernameArr));
+	swtichTempId = "";
 }
