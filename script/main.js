@@ -139,11 +139,18 @@ function removeMonitoringAccount(closedBtnId)
 {
 	var targetId = closedBtnId.split("_")[1];
 	d3.selectAll("#"+targetId).remove();
+	var usernameArr = JSON.parse(windowLocalStorage.getItem('IGPairUsername'));
+	var containerArr = JSON.parse(windowLocalStorage.getItem('IGPairContainer'));
+	var indexOfTarget = usernameArr.indexOf(targetId);
+	usernameArr.splice(indexOfTarget, 1);
+	containerArr.splice(indexOfTarget, 1);
+	windowLocalStorage.setItem('IGPairUsername',JSON.stringify(usernameArr));
+	windowLocalStorage.setItem('IGPairContainer',JSON.stringify(containerArr));
 }
 
 function switchPosition(switchId)
 {
-	var targetId = closedBtnId.split("_")[1];
+	var targetId = switchId.split("_")[1];
 	if(swtichTempId = "")
 	{
 		swtichTempId = targetId;
