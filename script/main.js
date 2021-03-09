@@ -23,6 +23,7 @@ function LoadInstagramFeed(username,containerId)
                 'lazy_load': true,
                 'on_error': console.error
             });
+	d3.select("#"+containerId).attr("background",getRandomLightColor());
 	modifyItemScaling();
 }
 
@@ -31,8 +32,7 @@ function modifyItemScaling()
 	let size = d3.select("#inputScalingSize").node().value;
 	let rate = 100/size;
 	d3.select(".item")
-	.attr("flex","0 1 calc(" + rate + "% - 8px);")
-	.attr("background",getRandomLightColor());
+	.attr("flex","0 1 calc(" + rate + "% - 8px);");
 }
 
 function newAccount()
@@ -50,7 +50,7 @@ function newAccount()
 
 function getRandomLightColor()
 {
-	var new_light_color = 'rgb(' + (Math.floor((256-229)*Math.random()) + 230) + ',' + 
+	return 'rgb(' + (Math.floor((256-229)*Math.random()) + 230) + ',' + 
             (Math.floor((256-229)*Math.random()) + 230) + ',' + 
             (Math.floor((256-229)*Math.random()) + 230) + ')'; 
 }
