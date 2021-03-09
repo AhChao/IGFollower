@@ -1,6 +1,6 @@
 var globalContainerCount = 0;
 var windowLocalStorage = window.localStorage;
-var iconSize = 30;
+var iconSize = 25;
 function init()
 {
 	globalContainerCount = 0;
@@ -98,9 +98,7 @@ function generateNewAccountView(account,containerId,needToRecordInStorage)
 	d3.select("#"+containerId).append("img")
 	.style("width",iconSize+"px")
 	.style("height",iconSize+"px")
-	.style("position","relative")
-	.style("top","0px")
-	.style("right","0px")
+	.style("float","right")
 	.attr("id","switchBtn_"+containerId)
 	.attr("src","./img/icon/down-arrow.png")
 	.lower();	
@@ -108,9 +106,7 @@ function generateNewAccountView(account,containerId,needToRecordInStorage)
 	d3.select("#"+containerId).append("img")
 	.style("width",iconSize+"px")
 	.style("height",iconSize+"px")
-	.style("position","relative")
-	.style("top","0px")
-	.style("right","0px")
+	.style("float","right")
 	.attr("id","closedBtn_"+containerId)
 	.attr("src","./img/icon/cancel.png")
 	.attr("onclick","removeMonitoringAccount(this.id)")
@@ -138,5 +134,5 @@ function setUpEnterKeyBinding(inputId,btnId)
 function removeMonitoringAccount(closedBtnId)
 {
 	var targetId = closedBtnId.split("_")[1];
-	d3.removeItem("#"+targetId);
+	d3.select("#"+targetId).remove();
 }
