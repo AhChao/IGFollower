@@ -72,7 +72,7 @@ function modifyItemScaling()
 {
 	let size = d3.select("#inputScalingSize").node().value;
 	let rate = Math.floor(100/size);
-	d3.select(".item")
+	d3.selectAll(".item")
 	.style("width",rate+"%");
 }
 
@@ -189,12 +189,12 @@ function switchPosition(switchId)
 		else if (node1Place != null && node2Place == null)
 		{
 			betweenDomList.push(nodeDomList[i]);
-			d3.select("#"+nodeDomList[i]).remove();
+			d3.select("#"+nodeDomList[i].id).remove();
 		}
 		else if (node2Place == null)
 		{
 			tailDomList.push(nodeDomList[i]);
-			d3.select("#"+nodeDomList[i]).remove();
+			d3.select("#"+nodeDomList[i].id).remove();
 		}
 	}
 	d3.select("#displayField").node().appendChild(node2);
