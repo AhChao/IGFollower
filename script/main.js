@@ -151,7 +151,7 @@ function removeMonitoringAccount(closedBtnId)
 function switchPosition(switchId)
 {
 	var targetId = switchId.split("_")[1];
-	if(swtichTempId = "")
+	if(swtichTempId == "")
 	{
 		swtichTempId = targetId;
 		return;
