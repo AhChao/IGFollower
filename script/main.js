@@ -2,15 +2,35 @@ var globalContainerCount = 0;
 var windowLocalStorage = window.localStorage;
 var iconSize = 25;
 var swtichTempId = "";
+var settings ={
+	isDisplayProfile : false,
+	isDisplayBiography : false,
+	itemPerScope : 1,
+	ItemPerRow : 1
+};
 function init()
 {
 	globalContainerCount = 0;
 	swtichTempId = "";
 	setUpEnterKeyBinding("inputIGAccount","newAccountBtn");
 	setUpEnterKeyBinding("inputScalingSize","scalingBtn");
+	loadSettingsWithLocalStorage();
 	loadAccountsWithLocalStorage();
 }
 init();
+
+function loadSettingsWithLocalStorage()
+{
+	settings = JSON.parse(windowLocalStorage.getItem('IGFeedSettings'));
+}
+
+function updateSettings()
+{
+	settings.isDisplayProfile =  d3.select("#inputDisplayProfile").node().value;
+	settings.isDisplayBiography =  d3.select("#inputDisplayBiography").node().value;
+	settings.itemPerScope =  d3.select("#inputItemCount").node().value;
+	settings.ItemPerRow =  d3.select("#inputItemPerRow").node().value;
+}
 
 function clickResetAccountBtn()
 {
@@ -26,15 +46,15 @@ function LoadInstagramFeed(username,containerId)
 	$.instagramFeed({
                 'username': username,
                 'container': "#"+containerId,
-                'display_profile': true,
-                'display_biography': false,
+                'display_profile': settings.isDisplayProfile,
+                'display_biography': settings.isDisplayBiography,
                 'display_gallery': true,
                 'display_captions': true,
                 'max_tries': 8,
                 'callback': null,
                 'styling': true,
-                'items': 1,
-                'items_per_row': 1,
+                'items': settings.itemPerScope,
+                'items_per_row': settings.ItemPerRow,
                 'margin': 1,
                 'lazy_load': true,
                 'on_error': console.error
@@ -56,7 +76,7 @@ function loadAccountsWithLocalStorage()
 		generateNewAccountView(usernameArr[id],containerArr[id],false);
 		if(id == containerArr.length-1)
 		{
-			globalContainerCount = parseInt(id) + 1;
+			globalContainerCount = parseInt(id) + 2;
 		}
 	}
 }
@@ -71,9 +91,8 @@ function concatArrayWithString(originString,insertString)
 function modifyItemScaling()
 {
 	let size = d3.select("#inputScalingSize").node().value;
-	let rate = Math.floor(100/size);
 	d3.selectAll(".item")
-	.style("width",rate+"%");
+	.style("width",size+"%");
 }
 
 function clickNewAccountBtn()

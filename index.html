@@ -23,18 +23,17 @@
 	}
 	body{
 		background :rgb(252, 242, 215);
-		margin: 0px;		
+		margin: 0px;
 	}
-	* {
-		overflow:hidden; /* or auto */
-	}
+
 	.card{
-		margin: 5px 20px 10px 5px;
+		margin: 5px 20px 20px 5px;
 		border: rgb(245, 186, 15) solid 3px;
 		background-color: rgb(33,33,33);
 		color: #FFFFFF;
 		display:inline-block;
 		width: 25%;
+		height: 150px;
 		box-shadow: .5rem .5rem 0 rgb(245, 186, 15);
 	}
 	.card input{
@@ -56,29 +55,46 @@
 	}
 	.topArea{
 		background: rgb(33,33,33);
-		border-bottom: solid 5px;
+		border-bottom: solid 5px rgb(245, 186, 15);
 		position: relative;
-		top: 0px;
+		top: -22px;
 		left: 0px;
 		width: 100%;
+		padding-top: 20px;
 	}
 </style>
 <body>
 	<div class="topArea">
-		<h1 style="color: white; text-shadow: 0.1em 0.1em 0.2em black; text-align: center;"> <img src="./img/flower.png" style="height: 70px;height: 70px;" />Instagram Follower <span style="font-size: 12px;">t0.0.51</span></h1>
-		<div class="card">
-			<h3>
-				<span class="title">Instagram 帳號</span><br>
-				<input type="text" id="inputIGAccount"><br>
-				<button id="newAccountBtn" onclick="clickNewAccountBtn()">新增 Instagram 帳號</button><button id="resetAccountBtn" onclick="clickResetAccountBtn()">重置設定</button>
-			</h3>
+		<div style="display: flex;justify-content: center;">
+		<h1 style="color: white; text-shadow: 0.1em 0.1em 0.2em black;"> <img src="./img/flower.png" style="height: 70px;height: 70px;" />Instagram Follower <span style="font-size: 12px;">t0.0.6</span></h1>
 		</div>
-		<div class="card">
-			<h3> 
-				<span class="title">釘選大小</span><br>
-				<input type="number" id="inputScalingSize" value=25> %<br>
-				<button id="scalingBtn" onclick="modifyItemScaling()">變更</button>
-			</h3>
+		<div style="display: flex; align-items: center;">
+			<div class="card">
+				<h3>
+					<span class="title">Instagram 帳號</span><br>
+					<input type="text" id="inputIGAccount"><br>
+					<button id="newAccountBtn" onclick="clickNewAccountBtn()">新增 Instagram 帳號</button><button id="resetAccountBtn" onclick="clickResetAccountBtn()">重置設定</button>
+				</h3>
+			</div>
+			<div class="card">
+				<h3> 
+					<span class="title">帳號卡大小</span><br>
+					<input type="number" id="inputScalingSize" value=25> %<br>
+					<button id="scalingBtn" onclick="modifyItemScaling()">變更</button>
+				</h3>
+			</div>
+			<div class="card">
+				<h3> 
+					<span class="title">釘選內容</span><br>
+					<span style="margin-left: 20px;"></span>
+					顯示個人檔案<input type="checkBox" id="inputDisplayProfile" value="true">
+					顯示短介紹<input type="checkBox" id="inputDisplayBiography" value="true"><br>
+					<span style="margin-left: 20px;"></span>
+					顯示照片數<input type="number" id="inputItemCount" style="width: 30px;" value="1">
+					單行照片數<input type="number" name="inputItemPerRow" style="width: 30px;" value="1"><br>
+					<button id="updateSettingsBtn" onclick="updateSettings()">變更</button>
+				</h3>
+			</div>
 		</div>
 	</div>
 	<div id="displayField" class="displayField"></div>
