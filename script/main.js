@@ -3,10 +3,10 @@ var windowLocalStorage = window.localStorage;
 var iconSize = 25;
 var swtichTempId = "";
 var settings ={
-	isDisplayProfile : false,
-	isDisplayBiography : false,
-	itemPerScope : 1,
-	ItemPerRow : 1
+	isDisplayProfile : null,
+	isDisplayBiography : null,
+	itemPerScope : null,
+	ItemPerRow : null
 };
 function init()
 {
@@ -21,15 +21,26 @@ init();
 
 function loadSettingsWithLocalStorage()
 {
-	settings = JSON.parse(windowLocalStorage.getItem('IGFeedSettings'));
+	var storeSettings = JSON.parse(windowLocalStorage.getItem('IGFeedSettings'));
+	if(storeSettings!=null)
+	{
+		settings = storeSettings;
+		d3.select("#inputDisplayProfile").node().checked = settings.isDisplayProfile;
+		d3.select("#inputDisplayBiography").node().checked = settings.isDisplayBiography;
+		d3.select("#inputItemCount").node().value = settings.itemPerScope;
+		d3.select("#inputItemPerRow").node().value = settings.ItemPerRow;
+	}
+	else
+		updateSettings();
 }
 
 function updateSettings()
 {
-	settings.isDisplayProfile =  d3.select("#inputDisplayProfile").node().value;
-	settings.isDisplayBiography =  d3.select("#inputDisplayBiography").node().value;
+	settings.isDisplayProfile =  d3.select("#inputDisplayProfile").node().checked;
+	settings.isDisplayBiography =  d3.select("#inputDisplayBiography").node().checked;
 	settings.itemPerScope =  d3.select("#inputItemCount").node().value;
 	settings.ItemPerRow =  d3.select("#inputItemPerRow").node().value;
+	windowLocalStorage.setItem('IGFeedSettings',JSON.stringify(settings));
 }
 
 function clickResetAccountBtn()
@@ -43,6 +54,7 @@ function clickResetAccountBtn()
 
 function LoadInstagramFeed(username,containerId)
 {
+	console.log(settings.isDisplayProfile,settings.isDisplayBiography);
 	$.instagramFeed({
                 'username': username,
                 'container': "#"+containerId,
@@ -134,13 +146,16 @@ function generateNewAccountView(account,containerId,needToRecordInStorage)
 	.attr("src","./img/icon/cancel.png")
 	.attr("onclick","removeMonitoringAccount(this.id)")
 	.lower();
+
+	d3.select("#"+containerId).append("div")
+	.attr("class","pin");
 }
 
 function getRandomLightColor()
 {
 	return 'rgb(' + (Math.floor((256-229)*Math.random()) + 230) + ',' + 
             (Math.floor((256-229)*Math.random()) + 230) + ',' + 
-            (Math.floor((256-229)*Math.random()) + 230) + ')'; 
+            (Math.floor((256-229)*Math.random()) + 130) + ')'; 
 }
 
 function setUpEnterKeyBinding(inputId,btnId)

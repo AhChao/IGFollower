@@ -8,13 +8,23 @@
 	.displayField{
 		display: flex;
 		flex-flow: row wrap;
+		background-image: url("./img/background.jpeg"); 
+		height: 100%;
 	}
+	
 	.item {
-		margin: 4px;
+	    background-color: #CBFAFA;
+	    margin: 4px;
 		border-radius: 10px;
 		width: 33%;
-		height: auto;
 	}
+
+	.pin {
+	    background-image: -moz-radial-gradient(45px 45px 45deg, circle cover, yellow 50%, black 100%);
+	    background-image: -webkit-radial-gradient(45px 45px, circle cover, yellow, black);
+	    background-image: radial-gradient(yellow 50%, black 100%);
+	}
+
 	button{
 		margin: 4px;
 		background: #8c6906;
@@ -22,7 +32,7 @@
     	border-radius: 5px;
 	}
 	body{
-		background :rgb(252, 242, 215);
+		background-image: url("./img/background.jpeg");
 		margin: 0px;
 	}
 
@@ -66,7 +76,7 @@
 <body>
 	<div class="topArea">
 		<div style="display: flex;justify-content: center;">
-		<h1 style="color: white; text-shadow: 0.1em 0.1em 0.2em black;"> <img src="./img/flower.png" style="height: 70px;height: 70px;" />Instagram Follower <span style="font-size: 12px;">t0.0.6</span></h1>
+		<h1 style="color: white; text-shadow: 0.1em 0.1em 0.2em black;"> <img src="./img/flower.png" style="height: 70px;height: 70px;" />Instagram Follower <span style="font-size: 12px;">v1.0.0</span></h1>
 		</div>
 		<div style="display: flex; align-items: center;">
 			<div class="card">
@@ -85,13 +95,13 @@
 			</div>
 			<div class="card">
 				<h3> 
-					<span class="title">釘選內容</span><br>
+					<span class="title">釘選內容(重整後生效)</span><br>
 					<span style="margin-left: 20px;"></span>
-					顯示個人檔案<input type="checkBox" id="inputDisplayProfile" value="true">
-					顯示短介紹<input type="checkBox" id="inputDisplayBiography" value="true"><br>
+					顯示個人檔案<input type="checkBox" id="inputDisplayProfile" checked="true">
+					顯示短介紹<input type="checkBox" id="inputDisplayBiography" checked="false"><br>
 					<span style="margin-left: 20px;"></span>
-					顯示照片數<input type="number" id="inputItemCount" style="width: 30px;" value="1">
-					單行照片數<input type="number" name="inputItemPerRow" style="width: 30px;" value="1"><br>
+					顯示照片數<input type="number" id="inputItemCount" style="width: 30px;" value="2">
+					單行照片數<input type="number" id="inputItemPerRow" style="width: 30px;" value="2"><br>
 					<button id="updateSettingsBtn" onclick="updateSettings()">變更</button>
 				</h3>
 			</div>
