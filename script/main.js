@@ -45,11 +45,13 @@ function updateSettings()
 
 function clickResetAccountBtn()
 {
-	d3.select("#displayField").node().innerHTML = "";
-	windowLocalStorage.removeItem("IGPairUsername");
-	windowLocalStorage.removeItem("IGPairContainer");
-	globalContainerCount = 0;
-	swtichTempId = "";
+	if (confirm("你確定要重製你的帳號釘選與設定嗎?")) {
+		d3.select("#displayField").node().innerHTML = "";
+		windowLocalStorage.removeItem("IGPairUsername");
+		windowLocalStorage.removeItem("IGPairContainer");
+		globalContainerCount = 0;
+		swtichTempId = "";
+	}
 }
 
 function LoadInstagramFeed(username,containerId)
@@ -188,6 +190,11 @@ function switchPosition(switchId)
 	if(swtichTempId == "")
 	{
 		swtichTempId = targetId;
+		return;
+	}
+	if(swtichTempId == targetId)
+	{
+		swtichTempId = ""
 		return;
 	}
 	var nodeList = d3.select("#displayField").node().childNodes;
