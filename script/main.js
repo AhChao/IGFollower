@@ -45,8 +45,8 @@ function loadPageWithInfo()
 
 function formSharedLink()
 {
-	let usernameString = windowLocalStorage.getItem('IGPairUsername').replace('"',"").replace("[","").replace("]","").replace('"',"");
-	let containerString = windowLocalStorage.getItem('IGPairContainer').replace('"',"").replace("[","").replace("]","").replace('"',"");
+	let usernameString = windowLocalStorage.getItem('IGPairUsername').replaceAll('"',"").replaceAll("[","").replaceAll("]","").replaceAll('"',"");
+	let containerString = windowLocalStorage.getItem('IGPairContainer').replaceAll('"',"").replaceAll("[","").replaceAll("]","").replaceAll('"',"");
 	let settingsString = settings.isDisplayProfile + ',' + settings.isDisplayBiography + ',' + settings.itemPerScope + ',' + settings.ItemPerRow;
 
 	d3.select("#formLinkButton").node().disabled = true;
