@@ -20,13 +20,14 @@ init();
 
 function loadPageWithInfo()
 {
-	let urlParams = new URLSearchParams(window.location.search);
+	let urlParams = window.location.search;
 	let stringOfSettings = "";
 	let stringOfAccounts = "";
 	let stringOfContainer = "";
 	let saveIntoStorage;
-	if(urlParams.has('isSharedLink'))
+	if(urlParams.indexOf('isSharedLink')!=-1)
 	{
+		urlParams = urlParams.split('isSharedLink')[1];
 		var sharedLinkInfo = loadPageWithSharedLink(urlParams);
 		stringOfAccounts = sharedLinkInfo.accounts;
 		stringOfContainer = sharedLinkInfo.containers;
@@ -50,7 +51,7 @@ function formSharedLink()
 
 	d3.select("#formLinkButton").node().disabled = true;
 	d3.select("#outputLinkField").node().value = "Loading...";
-	let link = window.location.href + "/?isSharedLink=true&IGFeedSettings=" + settingsString + "&IGPairUsername="+usernameString + "&IGPairContainer=" + containerString;
+	let link = window.location.href + "/?isSharedLinkIGFeedSettings" + settingsString + "IGPairUsername="+usernameString + "IGPairContainer=" + containerString;
 	shortenLinkWithShrtco(link);
 }
 
@@ -65,9 +66,9 @@ function copyLink()
 
 function loadPageWithSharedLink(linkData)
 {
-	let settingData = linkData.get('IGFeedSettings');
-	let usernameData = linkData.get('IGPairUsername');
-	let containerData = linkData.get('IGPairContainer');
+	let settingData = linkData.split('IGFeedSettings=')[1].split('IGPairUsername')[0];
+	let usernameData = linkData.split('IGPairUsername=')[1].split('IGPairContainer')[0];
+	let containerData = linkData.split('IGPairContainer=')[1];
 	settings ={
 		isDisplayProfile : settingData.split(',')[0],
 		isDisplayBiography : settingData.split(',')[1],

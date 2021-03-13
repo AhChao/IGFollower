@@ -2,6 +2,7 @@
 function shortenLinkWithShrtco(link)
 {
 	var xmlHttp = new XMLHttpRequest();
+	console.log(link);
     xmlHttp.open( "GET", "https://api.shrtco.de/v2/shorten?url="+link, false ); // false for synchronous request
     xmlHttp.send( null );
     var resp = JSON.parse(xmlHttp.responseText);
