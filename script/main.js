@@ -51,7 +51,7 @@ function formSharedLink()
 
 	d3.select("#formLinkButton").node().disabled = true;
 	d3.select("#outputLinkField").node().value = "Loading...";
-	let link = window.location.href + "/?isSharedLinkIGFeedSettings" + settingsString + "IGPairUsername="+usernameString + "IGPairContainer=" + containerString;
+	let link = window.location.href + "/?isSharedLinkIGFeedSettings=" + settingsString + "IGPairUsername="+usernameString + "IGPairContainer=" + containerString;
 	shortenLinkWithShrtco(link);
 }
 
