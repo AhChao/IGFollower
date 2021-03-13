@@ -14,24 +14,91 @@ function init()
 	swtichTempId = "";
 	setUpEnterKeyBinding("inputIGAccount","newAccountBtn");
 	setUpEnterKeyBinding("inputScalingSize","scalingBtn");
-	loadSettingsWithLocalStorage();
-	loadAccountsWithLocalStorage();
+	loadPageWithInfo();
 }
 init();
 
-function loadSettingsWithLocalStorage()
+function loadPageWithInfo()
+{
+	let urlParams = new URLSearchParams(window.location.search);
+	let stringOfSettings = "";
+	let stringOfAccounts = "";
+	let stringOfContainer = "";
+	let saveIntoStorage;
+	if(urlParams.has('isSharedLink'))
+	{
+		var sharedLinkInfo = loadPageWithSharedLink(urlParams);
+		stringOfAccounts = sharedLinkInfo.accounts;
+		stringOfContainer = sharedLinkInfo.containers;
+		saveIntoStorage = true;
+	}
+	else
+	{
+		stringOfAccounts = windowLocalStorage.getItem('IGPairUsername');
+		stringOfContainer = windowLocalStorage.getItem('IGPairContainer');
+		saveIntoStorage = false;
+	}
+	loadSettingsWithLocalStorage();
+	loadAccountsWithSavedString(stringOfAccounts,stringOfContainer,saveIntoStorage);
+}
+
+function formSharedLink()
+{
+	let usernameString = windowLocalStorage.getItem('IGPairUsername').replace('"',"").replace("[","").replace("]","").replace('"',"");
+	let containerString = windowLocalStorage.getItem('IGPairContainer').replace('"',"").replace("[","").replace("]","").replace('"',"");
+	let settingsString = settings.isDisplayProfile + ',' + settings.isDisplayBiography + ',' + settings.itemPerScope + ',' + settings.ItemPerRow;
+
+	d3.select("#formLinkButton").node().disabled = true;
+	d3.select("#outputLinkField").node().value = "Loading...";
+	let link = window.location.href + "/?isSharedLink=true&IGFeedSettings=" + settingsString + "&IGPairUsername="+usernameString + "&IGPairContainer=" + containerString;
+	shortenLinkWithShrtco(link);
+}
+
+function copyLink()
+{
+  let copyText = document.getElementById("outputLinkField");
+  if(copyText.value == "Loading...") return;
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+  document.execCommand("copy");
+}
+
+function loadPageWithSharedLink(linkData)
+{
+	let settingData = linkData.get('IGFeedSettings');
+	let usernameData = linkData.get('IGPairUsername');
+	let containerData = linkData.get('IGPairContainer');
+	settings ={
+		isDisplayProfile : settingData.split(',')[0],
+		isDisplayBiography : settingData.split(',')[1],
+		itemPerScope : settingData.split(',')[2],
+		ItemPerRow : settingData.split(',')[3]
+	}
+	syncDisplaySettingWithVariable();
+	return {
+		accounts : JSON.stringify(usernameData.split(',')),
+		containers : JSON.stringify(containerData.split(','))
+	}
+}
+
+function loadSettingsWithLocalStorage(settingsJSON)
 {
 	var storeSettings = JSON.parse(windowLocalStorage.getItem('IGFeedSettings'));
 	if(storeSettings!=null)
 	{
 		settings = storeSettings;
-		d3.select("#inputDisplayProfile").node().checked = settings.isDisplayProfile;
-		d3.select("#inputDisplayBiography").node().checked = settings.isDisplayBiography;
-		d3.select("#inputItemCount").node().value = settings.itemPerScope;
-		d3.select("#inputItemPerRow").node().value = settings.ItemPerRow;
+		syncDisplaySettingWithVariable();
 	}
 	else
 		updateSettings();
+}
+
+function syncDisplaySettingWithVariable()
+{
+	d3.select("#inputDisplayProfile").node().checked = settings.isDisplayProfile;
+	d3.select("#inputDisplayBiography").node().checked = settings.isDisplayBiography;
+	d3.select("#inputItemCount").node().value = settings.itemPerScope;
+	d3.select("#inputItemPerRow").node().value = settings.ItemPerRow;
 }
 
 function updateSettings()
@@ -46,17 +113,21 @@ function updateSettings()
 function clickResetAccountBtn()
 {
 	if (confirm("你確定要重製你的帳號釘選與設定嗎?")) {
-		d3.select("#displayField").node().innerHTML = "";
-		windowLocalStorage.removeItem("IGPairUsername");
-		windowLocalStorage.removeItem("IGPairContainer");
-		globalContainerCount = 0;
-		swtichTempId = "";
+		resetAccountAndSetting();		
 	}
+}
+
+function resetAccountAndSetting()
+{
+	d3.select("#displayField").node().innerHTML = "";
+	windowLocalStorage.removeItem("IGPairUsername");
+	windowLocalStorage.removeItem("IGPairContainer");
+	globalContainerCount = 0;
+	swtichTempId = "";
 }
 
 function LoadInstagramFeed(username,containerId)
 {
-	console.log(settings.isDisplayProfile,settings.isDisplayBiography);
 	$.instagramFeed({
                 'username': username,
                 'container': "#"+containerId,
@@ -77,17 +148,15 @@ function LoadInstagramFeed(username,containerId)
 	modifyItemScaling();
 }
 
-function loadAccountsWithLocalStorage()
+function loadAccountsWithSavedString(usernameStr,containerStr,saveIntoStorage)
 {
-	var usernameStr = windowLocalStorage.getItem('IGPairUsername');
-	var containerStr = windowLocalStorage.getItem('IGPairContainer');
 	if(usernameStr == null || containerStr == null)
 		return;
 	var usernameArr = JSON.parse(usernameStr);
 	var containerArr = JSON.parse(containerStr);
 	for(var id in containerArr)
 	{
-		generateNewAccountView(usernameArr[id],containerArr[id],false);
+		generateNewAccountView(usernameArr[id],containerArr[id],saveIntoStorage);
 		if(id == containerArr.length-1)
 		{
 			globalContainerCount = parseInt(id) + 2;

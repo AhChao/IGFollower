@@ -76,7 +76,7 @@
 <body>
 	<div class="topArea">
 		<div style="display: flex;justify-content: center;">
-		<h1 style="color: white; text-shadow: 0.1em 0.1em 0.2em black;"> <img src="./img/flower.png" style="height: 70px;height: 70px;" />Instagram Follower <span style="font-size: 12px;">v1.0.1</span></h1>
+		<h1 style="color: white; text-shadow: 0.1em 0.1em 0.2em black;"> <img src="./img/flower.png" style="height: 70px;height: 70px;" />Instagram Follower <span style="font-size: 12px;">v1.1.0</span></h1>
 		</div>
 		<div style="display: flex; align-items: center;">
 			<div class="card">
@@ -105,6 +105,15 @@
 					<button id="updateSettingsBtn" onclick="updateSettings()">變更</button>
 				</h3>
 			</div>
+			<div class="card">
+				<h3> 
+					<span class="title">分享連結</span><br>
+					<input type="text" id="outputLinkField" readonly><br>
+					<button id="formLinkButton" onclick="formSharedLink()">產生分享連結</button>
+					<button id="copyLinkBtn" onclick="copyLink()">複製</button>
+				</h3>
+			</div>
+
 		</div>
 	</div>
 	<div id="displayField" class="displayField"></div>
@@ -116,7 +125,7 @@
 	<script type="text/javascript" src="./lib/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="./lib/d3.v6.min.js"></script>
 	<script src="./lib/jquery.instagramFeed.min.js"></script>
-	<script type="text/javascript" src="./script/main.js"></script>
-	
+	<script type="text/javascript" src="./script/main.js?v=110"></script>
+	<script type="text/javascript" src="./script/shortCodeService.js?v=110"></script>	
 </body>
 </html>
